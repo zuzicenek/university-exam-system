@@ -1,0 +1,190 @@
+{block content}
+
+<div class="dashboard">
+
+    {* Horní navigace *}
+    <header class="dashboard-header">
+        <a n:href="default" class="brand">
+            <span class="brand-icon">U</span>
+            <span class="brand-name">University Exam System</span>
+        </a>
+
+        <div class="user-menu">
+            <div class="user-avatar">
+                {$jmeno|firstUpper|slice:0,1}
+            </div>
+            <div class="user-info">
+                <strong>{$jmeno} {$prijmeni}</strong>
+                <span>Pedagog · {$kod}</span>
+            </div>
+            <a n:href="logout!" class="logout-link">Odhlásit se</a>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+
+        {* Uvítání *}
+        <section class="welcome-section">
+            <div>
+                <span class="eyebrow">PEDAGOGICKÝ PORTÁL</span>
+                <h1>Vítej, {$jmeno}!</h1>
+                <p>Zde můžeš spravovat své předměty, vypisovat termíny a sledovat přihlášené studenty.</p>
+            </div>
+        </section>
+
+        {* Přehledové karty *}
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon stat-blue">▤</div>
+                <div>
+                    <span>Moje předměty</span>
+                    <strong>{$predmety|length}</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-green">▣</div>
+                <div>
+                    <span>Vypsané termíny</span>
+                    <strong>{$terminy|length}</strong>
+                </div>
+            </div>
+
+        </section>
+
+        {* Moje předměty *}
+        <section class="content-card">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">VÝUKA</span>
+                    <h2>Moje předměty</h2>
+                    <p>Předměty přiřazené k tvému pedagogickému účtu.</p>
+                </div>
+                <span class="count-badge">{$predmety|length} předm.</span>
+            </div>
+
+            {if count($predmety) > 0}
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Zkratka</th>
+                                <th>Název předmětu</th>
+                                <th>Kredity</th>
+                                <th>Ukončení</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $predmety as $predmet}
+                                <tr>
+                                    <td><span class="subject-code">{$predmet->zkratka_predmetu}</span></td>
+                                    <td class="table-primary">
+                                        {$predmet->ref('predmety', 'zkratka_predmetu')->nazev}
+                                    </td>
+                                    <td>{$predmet->ref('predmety', 'zkratka_predmetu')->pocet_kreditu}</td>
+                                    <td><span class="status-badge">{$predmet->ref('predmety', 'zkratka_predmetu')->ukonceni}</span></td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            {else}
+                <div class="empty-state">
+                    Nemáš přiřazené žádné předměty.
+                </div>
+            {/if}
+        </section>
+
+        {* Moje termíny *}
+        <section class="content-card">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ZKOUŠKY A ZÁPOČTY</span>
+                    <h2>Moje termíny</h2>
+                    <p>Přehled vypsaných termínů a správa přihlášených studentů.</p>
+                </div>
+                <span class="count-badge">{$terminy|length} term.</span>
+            </div>
+
+            {if count($terminy) > 0}
+                <div class="table-wrapper">
+                    <table class="data-table terms-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Předmět</th>
+                                <th>Datum a čas</th>
+                                <th>Místnost</th>
+                                <th>Kapacita</th>
+                                <th>Poznámka</th>
+                                <th>Akce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $terminy as $termin}
+                                <tr>
+                                    <td>{$termin->id_terminu}</td>
+                                    <td><span class="subject-code">{$termin->zkratka_predmetu}</span></td>
+                                    <td class="table-primary">{$termin->datum_cas|date:'d. m. Y H:i'}</td>
+                                    <td>{$termin->zkratka_mistnosti}</td>
+                                    <td>{$termin->max_pocet_prihlasenych} studentů</td>
+                                    <td>{$termin->poznamka ?: '—'}</td>
+                                    <td>
+                                        <div class="action-links">
+                                            <a n:href="edit, id => $termin->id_terminu" class="action-link">Upravit</a>
+
+                                            <a n:href="deleteTerm!, id => $termin->id_terminu"
+                                               class="action-link action-danger"
+                                               onclick="return confirm('Opravdu chceš tento termín smazat?')">
+                                                Smazat
+                                            </a>
+
+                                            <a n:href="results, id => $termin->id_terminu" class="action-link">
+                                                Studenti a výsledky
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            {else}
+                <div class="empty-state">
+                    Zatím nemáš vypsané žádné termíny.
+                </div>
+            {/if}
+        </section>
+
+        {* Formulář *}
+        <section class="content-card form-card">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">SPRÁVA TERMÍNŮ</span>
+
+                    {if $editMode}
+                        <h2>Upravit termín</h2>
+                        <p>Změň potřebné údaje a ulož aktualizovaný termín.</p>
+                    {else}
+                        <h2>Vypsat nový termín</h2>
+                        <p>Vytvoř nový termín pro některý ze svých předmětů.</p>
+                    {/if}
+                </div>
+            </div>
+
+            {control termForm}
+
+            {if $editMode}
+                <a n:href="default" class="cancel-link">Zrušit úpravu a vrátit se zpět</a>
+            {/if}
+        </section>
+
+        <footer class="dashboard-footer">
+            University Exam System · Pedagogický portál
+        </footer>
+
+    </main>
+</div>
+
+{/block}

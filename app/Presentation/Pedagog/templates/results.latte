@@ -1,0 +1,48 @@
+{block content}
+
+<h1>Studenti a výsledky</h1>
+
+<h2>Předmět: {$termin->zkratka_predmetu}</h2>
+
+<p>Datum a čas: {$termin->datum_cas|date:'d. m. Y H:i'}</p>
+<p>Místnost: {$termin->zkratka_mistnosti}</p>
+
+<hr>
+
+<h2>Přihlášení studenti</h2>
+
+{if count($studenti) > 0}
+
+    {if $termin->datum_cas->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')}
+
+        <p>Termín ještě neproběhl. Známky bude možné zadat až po jeho skončení.</p>
+
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Kód studenta</th>
+                <th>Jméno a příjmení</th>
+            </tr>
+
+            {foreach $studenti as $student}
+                <tr>
+                    <td>{$student->kod}</td>
+                    <td>{$student->jmeno} {$student->prijmeni}</td>
+                </tr>
+            {/foreach}
+        </table>
+
+    {else}
+
+        {control resultForm}
+
+    {/if}
+
+{else}
+
+    <p>Na tento termín není přihlášen žádný student.</p>
+
+{/if}
+
+<p><a n:href="default">Zpět na přehled pedagoga</a></p>
+
+{/block}

@@ -1,0 +1,906 @@
+:root {
+    --background: #edf2f8;
+    --surface: #ffffff;
+    --surface-secondary: #f6f8fc;
+
+    --primary: #315fa8;
+    --primary-hover: #244d8d;
+    --primary-light: #eaf1fc;
+
+    --text: #203653;
+    --text-secondary: #687b93;
+    --text-muted: #91a0b2;
+
+    --border: #dce4ef;
+    --success: #18875c;
+    --danger: #c13f4a;
+    --warning: #a66b13;
+
+    --radius: 12px;
+    --radius-large: 18px;
+    --shadow: 0 8px 28px rgba(31, 54, 86, .07);
+}
+
+/* =====================================================
+   1. GLOBALNI NASTAVENI
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    color: var(--text);
+    line-height: 1.3;
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: .2s;
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+hr {
+    margin: 28px 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+}
+
+/* =====================================================
+   2. SPOLECNE FORMULARE A VSTUPY
+   ===================================================== */
+
+input,
+select,
+textarea {
+    max-width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 95, 168, .12);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    min-height: auto;
+    accent-color: var(--primary);
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+    display: inline-block;
+    min-height: 42px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   3. SPOLECNE TABULKY
+   ===================================================== */
+
+table {
+    width: 100%;
+    margin: 16px 0 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+th {
+    padding: 14px 17px;
+    background: #edf2f9;
+    color: var(--text);
+    text-align: left;
+    font-weight: 650;
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 13px 17px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover td {
+    background: #f7f9fd;
+}
+
+/* =====================================================
+   4. PRIHLASOVACI STRANKA
+   ===================================================== */
+
+.login-page {
+    width: 100%;
+    min-height: calc(100vh - 65px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+    background:
+        radial-gradient(circle at 15% 10%, #e0eafa, transparent 38%),
+        var(--background);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 565px;
+    margin: auto;
+    padding: 45px 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(31, 54, 86, .12);
+}
+
+/* Logo */
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.login-icon {
+    width: 63px;
+    height: 63px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: white;
+    border-radius: 16px;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.login-logo h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: 23px;
+    font-weight: 750;
+}
+
+.login-logo p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Nadpis */
+
+.login-heading {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.login-heading h2 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 25px;
+}
+
+.login-heading p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+/* Nette login formular */
+
+.login-card form {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.login-card form table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-spacing: 0 15px;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+.login-card form tr,
+.login-card form tr:hover,
+.login-card form tr:hover td {
+    background: transparent;
+}
+
+.login-card form th,
+.login-card form td {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-align: left;
+}
+
+.login-card form th {
+    margin: 0 0 6px;
+}
+
+.login-card form th label {
+    display: block;
+    min-width: 0;
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 650;
+}
+
+/* Vstupni pole - vzdy pres celou sirku */
+
+.login-card form input[type="text"],
+.login-card form input[type="password"] {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    height: 54px;
+    margin: 0;
+    padding: 0 15px;
+    background: #f7f9fc;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+.login-card form input[type="text"]:focus,
+.login-card form input[type="password"]:focus {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 95, 168, .12);
+}
+
+/* Tlacitko */
+
+.login-card form input[type="submit"],
+.login-card form button {
+    display: block;
+    width: 100%;
+    height: 54px;
+    margin: 17px 0 0;
+    padding: 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-card form input[type="submit"]:hover {
+    background: var(--primary-hover);
+}
+
+/* Chybove hlaseni */
+
+.login-card form .error,
+.login-card form .error-message {
+    display: block;
+    margin: 5px 0;
+    color: var(--danger);
+    font-size: 13px;
+}
+
+/* Spodni text */
+
+.login-footer {
+    margin-top: 34px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+/* =====================================================
+   5. DASHBOARD PEDAGOGA A STUDENTA
+   ===================================================== */
+
+.dashboard {
+    min-height: 100vh;
+    background: var(--background);
+}
+
+.dashboard-header {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 5.5%;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(31, 54, 86, .03);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.brand:hover {
+    text-decoration: none;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: white;
+    border-radius: 11px;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+}
+
+.user-info strong {
+    color: var(--text);
+    font-size: 14px;
+}
+
+.user-info span {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.logout-link {
+    margin-left: 12px;
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.dashboard-main {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 38px 35px 25px;
+}
+
+/* Uvitani */
+
+.welcome-section {
+    margin-bottom: 25px;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1.2px;
+}
+
+.welcome-section h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.welcome-section p {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+}
+
+/* Statistiky */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 23px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.stat-blue {
+    background: #eaf1fc;
+    color: var(--primary);
+}
+
+.stat-green {
+    background: #e8f6ef;
+    color: var(--success);
+}
+
+.stat-card span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.stat-card strong {
+    display: block;
+    margin-top: 3px;
+    color: var(--text);
+    font-size: 27px;
+    line-height: 1.3;
+}
+
+/* Obsahove karty */
+
+.content-card {
+    margin-bottom: 25px;
+    padding: 26px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.section-heading p {
+    margin: 5px 0 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.count-badge {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* Tabulky dashboardu */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.data-table th {
+    padding: 14px 15px;
+    background: #edf2f9;
+    color: var(--text);
+    text-align: left;
+    white-space: nowrap;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+    padding: 14px 15px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:hover td {
+    background: #f7f9fd;
+}
+
+.table-primary {
+    color: var(--text) !important;
+    font-weight: 600;
+}
+
+.subject-code {
+    display: inline-block;
+    padding: 5px 9px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 9px;
+    background: #e8f6ef;
+    color: var(--success);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Akce */
+
+.action-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    min-width: 190px;
+}
+
+.action-link {
+    display: inline-block;
+    padding: 6px 9px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.action-link:hover {
+    background: #dce8fa;
+    text-decoration: none;
+}
+
+.action-danger {
+    background: #fff0f0;
+    color: var(--danger);
+}
+
+.action-danger:hover {
+    background: #ffe0e0;
+}
+
+/* Prazdny stav */
+
+.empty-state {
+    padding: 25px;
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+    border: 1px dashed #cbd6e4;
+    border-radius: 9px;
+    text-align: center;
+}
+
+/* Formular terminu */
+
+.form-card form {
+    max-width: 750px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.form-card form table {
+    border: none;
+    border-spacing: 0 10px;
+    box-shadow: none;
+}
+
+.form-card form th,
+.form-card form td {
+    padding: 5px 8px;
+    border: none;
+    background: transparent;
+}
+
+.form-card form th {
+    width: 220px;
+    text-align: left;
+}
+
+.form-card form th label {
+    min-width: 0;
+    margin: 0;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.form-card form input:not([type="submit"]),
+.form-card form select,
+.form-card form textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-card form input[type="submit"] {
+    margin-top: 12px;
+}
+
+.cancel-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+/* Spodni cast */
+
+.dashboard-footer {
+    padding: 25px 0 10px;
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 12px;
+}
+
+/* =====================================================
+   6. VYSLEDKY STUDENTU
+   ===================================================== */
+
+.result-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px;
+}
+
+.result-card {
+    margin-bottom: 25px;
+    padding: 26px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* =====================================================
+   7. FLASH ZPRAVY
+   ===================================================== */
+
+.flash {
+    width: calc(100% - 40px);
+    max-width: 1450px;
+    margin: 15px auto;
+    padding: 13px 18px;
+    background: #eaf1fc;
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.flash.success {
+    background: #e8f6ef;
+    color: var(--success);
+    border-color: #c4ead8;
+}
+
+.flash.error,
+.flash.danger {
+    background: #fff0f0;
+    color: var(--danger);
+    border-color: #f2caca;
+}
+
+.flash.warning {
+    background: #fff6e5;
+    color: var(--warning);
+    border-color: #f0dfb8;
+}
+
+/* =====================================================
+   8. RESPONZIVNI ZOBRAZENI
+   ===================================================== */
+
+@media (max-width: 900px) {
+    .dashboard-header {
+        padding: 14px 22px;
+    }
+
+    .dashboard-main {
+        padding: 25px 20px;
+    }
+
+    .terms-table {
+        min-width: 900px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .user-menu {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-main {
+        padding: 22px 13px;
+    }
+
+    .content-card {
+        padding: 17px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .welcome-section h1 {
+        font-size: 25px;
+    }
+
+    .login-page {
+        min-height: calc(100vh - 65px);
+        padding: 20px 12px;
+    }
+
+    .login-card {
+        max-width: 565px;
+        padding: 38px 30px;
+    }
+
+    .login-logo h1 {
+        font-size: 20px;
+    }
+
+    .form-card form th,
+    .form-card form td {
+        display: block;
+        width: 100%;
+    }
+
+    .form-card form th {
+        padding-bottom: 0;
+    }
+
+    .form-card form td {
+        padding-top: 0;
+    }
+}

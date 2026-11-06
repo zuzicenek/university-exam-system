@@ -1,0 +1,7 @@
+/vendor/
+/temp/
+/log/
+/www/assets/
+.env
+config/local.neon
+config/local.neon.php

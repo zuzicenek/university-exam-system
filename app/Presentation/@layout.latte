@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{ifset title}{include title|stripHtml} | {/ifset}University Exam System</title>
+
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+
+    {asset? 'main.js'}
+</head>
+
+<body>
+    <div class="app-container">
+
+        <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+            {$flash->message}
+        </div>
+
+        {include content}
+
+    </div>
+</body>
+</html>

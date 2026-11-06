@@ -1,0 +1,229 @@
+{block content}
+
+<div class="dashboard">
+
+    {* Horni navigacni lista *}
+    <header class="dashboard-header">
+        <a n:href="default" class="brand">
+            <span class="brand-icon">U</span>
+            <span class="brand-name">University Exam System</span>
+        </a>
+
+        <div class="user-menu">
+            <div class="user-avatar">
+                {$jmeno|firstUpper|slice:0,1}
+            </div>
+
+            <div class="user-info">
+                <strong>{$jmeno} {$prijmeni}</strong>
+                <span>Student · {$kod}</span>
+            </div>
+
+            <a n:href="logout!" class="logout-link">Odhlásit se</a>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+
+        {* Uvitani *}
+        <section class="welcome-section">
+            <div>
+                <span class="eyebrow">STUDENTSKÝ PORTÁL</span>
+                <h1>Vítej, {$jmeno}!</h1>
+                <p>Zde najdeš své předměty, dostupné termíny a přehled svých přihlášek.</p>
+            </div>
+        </section>
+
+        {* Prehledove karty *}
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon stat-blue">▤</div>
+                <div>
+                    <span>Moje předměty</span>
+                    <strong>{$predmety|length}</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-green">▣</div>
+                <div>
+                    <span>Dostupné termíny</span>
+                    <strong>{$terminy|length}</strong>
+                </div>
+            </div>
+
+        </section>
+
+        {* Moje predmety *}
+        <section class="content-card">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">MOJE STUDIUM</span>
+                    <h2>Moje předměty</h2>
+                    <p>Přehled předmětů zapsaných do tvého studia.</p>
+                </div>
+
+                <span class="count-badge">{$predmety|length} předm.</span>
+            </div>
+
+            {if count($predmety) > 0}
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Zkratka</th>
+                                <th>Název předmětu</th>
+                                <th>Kredity</th>
+                                <th>Ukončení</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {foreach $predmety as $predmet}
+                                <tr>
+                                    <td>
+                                        <span class="subject-code">
+                                            {$predmet->zkratka_predmetu}
+                                        </span>
+                                    </td>
+
+                                    <td class="table-primary">
+                                        {$predmet->ref('predmety', 'zkratka_predmetu')->nazev}
+                                    </td>
+
+                                    <td>
+                                        {$predmet->ref('predmety', 'zkratka_predmetu')->pocet_kreditu}
+                                    </td>
+
+                                    <td>
+                                        <span class="status-badge">
+                                            {$predmet->ref('predmety', 'zkratka_predmetu')->ukonceni}
+                                        </span>
+                                    </td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+            {else}
+
+                <div class="empty-state">
+                    Nemáš zapsané žádné předměty.
+                </div>
+
+            {/if}
+
+        </section>
+
+        {* Vypsane terminy *}
+        <section class="content-card">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ZKOUŠKY A ZÁPOČTY</span>
+                    <h2>Vypsané termíny</h2>
+                    <p>Vyber si termín a spravuj své přihlášky ke zkouškám a zápočtům.</p>
+                </div>
+
+                <span class="count-badge">{$terminy|length} term.</span>
+            </div>
+
+            {if count($terminy) > 0}
+
+                <div class="table-wrapper">
+                    <table class="data-table terms-table">
+                        <thead>
+                            <tr>
+                                <th>Předmět</th>
+                                <th>Datum a čas</th>
+                                <th>Místnost</th>
+                                <th>Poznámka</th>
+                                <th>Obsazenost</th>
+                                <th>Akce</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {foreach $terminy as $termin}
+                                <tr>
+
+                                    <td>
+                                        <span class="subject-code">
+                                            {$termin->predmet}
+                                        </span>
+                                    </td>
+
+                                    <td class="table-primary">
+                                        {$termin->datumCas|date:'d. m. Y H:i'}
+                                    </td>
+
+                                    <td>
+                                        {$termin->mistnost}
+                                    </td>
+
+                                    <td>
+                                        {$termin->poznamka ?: '—'}
+                                    </td>
+
+                                    <td>
+                                        {$termin->pocetPrihlasenych} / {$termin->kapacita}
+                                    </td>
+
+                                    <td>
+                                        <div class="action-links">
+
+                                            {if $termin->prihlasen}
+
+                                                <a n:href="cancel! id => $termin->id"
+                                                   class="action-link action-danger"
+                                                   onclick="return confirm('Opravdu se chceš odhlásit z tohoto termínu?')">
+                                                    Odhlásit
+                                                </a>
+
+                                            {elseif $termin->plno}
+
+                                                <span class="action-link action-danger">
+                                                    Obsazeno
+                                                </span>
+
+                                            {else}
+
+                                                <a n:href="signUp! id => $termin->id"
+                                                   class="action-link">
+                                                    Přihlásit se
+                                                </a>
+
+                                            {/if}
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+            {else}
+
+                <div class="empty-state">
+                    Pro tvoje předměty zatím nejsou vypsané žádné budoucí termíny.
+                </div>
+
+            {/if}
+
+        </section>
+
+        <footer class="dashboard-footer">
+            University Exam System · Studentský portál
+        </footer>
+
+    </main>
+
+</div>
+
+{/block}
