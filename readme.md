@@ -1,64 +1,74 @@
-Nette Web Project
-=================
+# University Exam System
 
-Welcome to the Nette Web Project! This is a basic skeleton application built using
-[Nette](https://nette.org), ideal for kick-starting your new web projects.
+A web-based university examination management system developed as a semester project using PHP and the Nette framework.
 
-Nette is a renowned PHP web development framework, celebrated for its user-friendliness,
-robust security, and outstanding performance. It's among the safest choices
-for PHP frameworks out there.
+The application provides separate interfaces for students and teachers, allowing them to manage examination dates, student registrations and exam results.
 
-If Nette helps you, consider supporting it by [making a donation](https://nette.org/donate).
-Thank you for your generosity!
+## Features
 
+### Student
+- Secure login
+- Overview of enrolled subjects
+- Browse available examination dates
+- Register for and cancel examination dates
+- View examination results
 
-Requirements
-------------
+### Teacher
+- Secure login
+- Overview of assigned subjects
+- Create, edit and delete examination dates
+- Manage examination capacity
+- View registered students
+- Enter and update examination results
 
-This Web Project is compatible with Nette 3.2 and requires PHP 8.2.
+### System rules
+- Role-based access control
+- Students cannot register for the same examination twice
+- Students cannot register for multiple dates of the same subject
+- Examination capacity is enforced
+- Past examination dates cannot be created
+- Results can be entered after the examination date
 
+## Technologies
 
-Installation
-------------
+- PHP 8.2
+- Nette Framework 3.2
+- MariaDB / MySQL
+- HTML
+- CSS
+- Composer
 
-To install the Web Project, Composer is the recommended tool. If you're new to Composer,
-follow [these instructions](https://doc.nette.org/composer). Then, run:
+## Requirements
 
-	composer create-project nette/web-project path/to/install
-	cd path/to/install
+- PHP 8.2 or newer
+- Composer
+- MySQL or MariaDB
+- Apache web server (e.g. XAMPP)
 
-Ensure the `temp/` and `log/` directories are writable.
+## Local installation
 
+1. Clone the repository:
 
-Asset Building with Vite
-------------------------
+   ```bash
+   git clone https://github.com/zuzicenek/university-exam-system.git
+   ```
 
-This project supports Vite for asset building, which is recommended but optional. To activate Vite:
+2. Install PHP dependencies:
 
-1. Uncomment the `type: vite` line in the `common.neon` configuration file under the assets mapping section.
-2. Then set up and build the assets:
+   ```bash
+   composer install
+   ```
 
-		npm install
-		npm run build
+3. Create a database named `projekt` and import the project database structure and sample data.
 
+4. Configure the database connection in `config/common.neon`.
 
-Web Server Setup
-----------------
+5. Start Apache and MySQL using XAMPP.
 
-To quickly dive in, use PHP's built-in server:
+6. Open the application:
 
-	php -S localhost:8000 -t www
+   `http://localhost/university-exam-system/www/`
 
-Then, open `http://localhost:8000` in your browser to view the welcome page.
+## Project purpose
 
-For Apache or Nginx users, configure a virtual host pointing to your project's `www/` directory.
-
-**Important Note:** Ensure `app/`, `config/`, `log/`, and `temp/` directories are not web-accessible.
-Refer to [security warning](https://nette.org/security-warning) for more details.
-
-
-Minimal Skeleton
-----------------
-
-For demonstrating issues or similar tasks, rather than starting a new project, use
-[minimal skeleton](https://github.com/nette/web-project/tree/minimal).
+The project was created to practise PHP development, database operations, authentication, role-based access control and building a web application using the Nette framework.
